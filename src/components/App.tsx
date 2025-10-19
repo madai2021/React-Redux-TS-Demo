@@ -1,4 +1,5 @@
 import Counter from "./counter/Counter";
+import Todo from "./todo/Todo";
 
 const App: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ const App: React.FC = () => {
           flex: 1,
         }}
       >
-        <Counter />
+        <Todo />
       </div>
     </div>
   );
