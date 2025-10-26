@@ -1,11 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import type { CounterState } from "../../features/counter/counterSlice.types";
+import { RootState } from "../../app/store";
 import { handleDecrement, handleIncrement } from "./CounterActions";
 
 const Counter: React.FC = () => {
-  const counterValue = useSelector(
-    (state: { counterSlice: CounterState }) => state.counterSlice.value
-  );
+  const counterValue = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch();
   return (
     <div>

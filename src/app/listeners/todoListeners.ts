@@ -1,6 +1,7 @@
 import Logger from "../../config/logger";
 import { addTodo, removeTodo, toggleTodo } from "../../features/todo/todoSlice";
 import TodoStorage from "../../features/todo/todoStorage";
+import { RootState } from "../store";
 import { startListening } from "./index";
 
 const registerTodoListeners = () => {
@@ -12,8 +13,8 @@ const registerTodoListeners = () => {
       action.type === removeTodo.type,
     effect: async (_, api) => {
       Logger.info("Todo state changed, saving to localStorage");
-      const state = api.getState() as any;
-      TodoStorage.save(state.todoSlice.list);
+      const state = api.getState() as RootState;
+      TodoStorage.save(state.todo.list);
     },
   });
 };
