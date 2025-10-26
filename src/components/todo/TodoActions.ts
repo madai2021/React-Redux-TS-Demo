@@ -2,6 +2,8 @@ import { Dispatch } from "redux";
 import { addTodo, removeTodo, toggleTodo } from "../../features/todo/todoSlice";
 
 export const handleAddTodo = (dispatch: Dispatch, text: string) => {
+  const trimmed = text.trim();
+  if (!trimmed) return;
   dispatch(addTodo(text));
 };
 
