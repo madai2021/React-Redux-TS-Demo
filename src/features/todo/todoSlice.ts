@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import TodoStorage from "./todoStorage";
 
 export interface Todo {
   id: number;
@@ -10,17 +11,8 @@ export interface TodoState {
   list: Todo[];
 }
 
-const loadTodos = (): Todo[] => {
-  const data = localStorage.getItem("todos");
-  return data ? JSON.parse(data) : [];
-};
-
-const saveTodos = (todos: Todo[]) => {
-  localStorage.setItem("todos", JSON.stringify(todos));
-};
-
 const initialState: TodoState = {
-  list: loadTodos(),
+  list: TodoStorage.load(),
 };
 
 const todoSlice = createSlice({
@@ -29,16 +21,16 @@ const todoSlice = createSlice({
   reducers: {
     addTodo: (state, action: PayloadAction<string>) => {
       state.list.push({ id: Date.now(), text: action.payload, done: false });
-      saveTodos(state.list);
+      TodoStorage.save(state.list);
     },
     toggleTodo: (state, action: PayloadAction<number>) => {
       const todo = state.list.find((t) => t.id === action.payload);
       if (todo) todo.done = !todo.done;
-      saveTodos(state.list);
+      TodoStorage.save(state.list);
     },
     removeTodo: (state, action: PayloadAction<number>) => {
       state.list = state.list.filter((t) => t.id !== action.payload);
-      saveTodos(state.list);
+      TodoStorage.save(state.list);
     },
   },
 });
