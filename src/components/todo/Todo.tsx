@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import type { TodoState } from "../../features/todo/todoSlice.types";
+import type { TodoState } from "../../features/todo/todoSlice";
 import {
   handleAddTodo,
   handleRemoveTodo,
