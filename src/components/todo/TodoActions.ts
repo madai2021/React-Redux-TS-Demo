@@ -1,6 +1,17 @@
 import { Dispatch } from "redux";
-import { addTodo, removeTodo, toggleTodo } from "../../features/todo/todoSlice";
+import {
+  addTodo,
+  removeTodo,
+  setServerMode,
+  toggleTodo,
+} from "../../features/todo/todoSlice";
 
+export const handleIsServerMode = (
+  dispatch: Dispatch,
+  isServerMode: boolean
+) => {
+  dispatch(setServerMode(isServerMode));
+};
 export const handleAddTodo = (dispatch: Dispatch, text: string) => {
   const trimmed = text.trim();
   if (!trimmed) return;
