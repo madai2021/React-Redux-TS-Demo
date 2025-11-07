@@ -1,4 +1,4 @@
-import Counter from "./counter/Counter";
+import ThreeDView from "./threeDView/ThreeDView";
 import Todo from "./todo/Todo";
 
 const App: React.FC = () => {
@@ -8,6 +8,7 @@ const App: React.FC = () => {
         display: "flex",
         width: "100vw",
         height: "100vh",
+        gap: "20px",
       }}
     >
       <div
@@ -15,7 +16,7 @@ const App: React.FC = () => {
           flex: 1,
         }}
       >
-        <Counter />
+        <ThreeDView />
       </div>
       <div
         style={{
