@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { ThreeDViewEngine } from "../ThreeDViewEngine";
+import { ThreeDViewEngine } from "../threeDViewEngine";
 import { CameraController } from "./cameraController";
 import { Cube } from "./meshes/cube";
 import { Shader } from "./shader/shader";

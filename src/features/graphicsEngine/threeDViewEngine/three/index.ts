@@ -1,1 +1,1 @@
-export * from "./ThreeCore";
+export * from "./threeCore";

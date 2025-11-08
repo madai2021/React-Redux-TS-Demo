@@ -1,6 +1,6 @@
-import { BabylonCore } from "../features/graphicsEngine/threeDViewEngine/babylon/BabylonCore";
-import { DirectWebGLCore } from "../features/graphicsEngine/threeDViewEngine/directWebGL/DirectWebGLCore";
-import { ThreeCore } from "../features/graphicsEngine/threeDViewEngine/three/ThreeCore";
+import { BabylonCore } from "../features/graphicsEngine/threeDViewEngine/babylon";
+import { DirectWebGLCore } from "../features/graphicsEngine/threeDViewEngine/directWebGL";
+import { ThreeCore } from "../features/graphicsEngine/threeDViewEngine/three";
 import ThreeDView from "./threeDView/ThreeDView";
 
 const App: React.FC = () => {

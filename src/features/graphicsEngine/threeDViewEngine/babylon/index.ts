@@ -1,1 +1,1 @@
-export * from "./BabylonCore";
+export * from "./babylonCore";
