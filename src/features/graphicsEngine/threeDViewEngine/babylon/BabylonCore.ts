@@ -5,9 +5,9 @@ import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
 import { Scene } from "@babylonjs/core/scene";
-import { IThreeDViewEngine } from "../IThreeDViewEngine";
+import { ThreeDViewEngine } from "../ThreeDViewEngine";
 
-export class BabylonCore implements IThreeDViewEngine {
+export class BabylonCore extends ThreeDViewEngine {
   private engine: Nullable<Engine>;
   private scene: Nullable<Scene>;
   private camera: Nullable<Camera>;
@@ -16,6 +16,7 @@ export class BabylonCore implements IThreeDViewEngine {
   };
 
   constructor() {
+    super();
     this.engine = null;
     this.scene = null;
     this.camera = null;
