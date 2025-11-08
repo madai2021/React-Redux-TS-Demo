@@ -1,4 +1,5 @@
 import { BabylonCore } from "../features/graphicsEngine/threeDViewEngine/babylon/BabylonCore";
+import { ThreeCore } from "../features/graphicsEngine/threeDViewEngine/three/ThreeCore";
 import ThreeDView from "./threeDView/ThreeDView";
 import Todo from "./todo/Todo";
 
@@ -12,6 +13,13 @@ const App: React.FC = () => {
         gap: "20px",
       }}
     >
+      <div
+        style={{
+          flex: 1,
+        }}
+      >
+        <ThreeDView engine={new ThreeCore()} />
+      </div>
       <div
         style={{
           flex: 1,
