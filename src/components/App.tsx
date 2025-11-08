@@ -1,7 +1,7 @@
 import { BabylonCore } from "../features/graphicsEngine/threeDViewEngine/babylon/BabylonCore";
+import { DirectWebGLCore } from "../features/graphicsEngine/threeDViewEngine/directWebGL/DirectWebGLCore";
 import { ThreeCore } from "../features/graphicsEngine/threeDViewEngine/three/ThreeCore";
 import ThreeDView from "./threeDView/ThreeDView";
-import Todo from "./todo/Todo";
 
 const App: React.FC = () => {
   return (
@@ -32,7 +32,7 @@ const App: React.FC = () => {
           flex: 1,
         }}
       >
-        <Todo />
+        <ThreeDView engine={new DirectWebGLCore()} />
       </div>
     </div>
   );
