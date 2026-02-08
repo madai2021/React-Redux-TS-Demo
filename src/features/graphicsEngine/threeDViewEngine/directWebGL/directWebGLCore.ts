@@ -1,11 +1,26 @@
 import * as THREE from "three";
 import { ThreeDViewEngine } from "../threeDViewEngine";
 import { CameraController } from "./cameraController";
+import {
+  IInputObservable,
+  InputEvent,
+  InputObservable,
+  InputType,
+  StatusChangeInputActionType,
+  StatusChangeInputValue,
+  ViewChangeInputActionType,
+  ViewChangeInputValue,
+} from "./input/observable";
+import { IInputObserver } from "./input/observer";
 import { Cube } from "./meshes/cube";
 import { Shader } from "./shader/shader";
+import { StatusChangeHandler, ViewChangeHandler } from "./type";
 
 // WebGLで直接描画するエンジン、Three.jsは行列計算にのみ使用
-export class DirectWebGLCore extends ThreeDViewEngine {
+export class DirectWebGLCore
+  extends ThreeDViewEngine
+  implements IInputObserver<InputEvent>
+{
   private gl: WebGL2RenderingContext | null;
   private canvas: HTMLCanvasElement | null;
   private vao: WebGLVertexArrayObject | null;
@@ -14,6 +29,26 @@ export class DirectWebGLCore extends ThreeDViewEngine {
   private shader: Shader | null;
   private cube: Cube | null;
   private cameraController: CameraController | null;
+  private inputObservable: IInputObservable<InputEvent> | null;
+
+  private readonly viewChangeHandlers: Map<
+    ViewChangeInputActionType,
+    ViewChangeHandler
+  > = new Map([
+    [ViewChangeInputActionType.Tilt, (v) => this.#onViewChangeTilt(v)],
+    [ViewChangeInputActionType.Pan, (v) => this.#onViewChangePan(v)],
+    [ViewChangeInputActionType.Zoom, (v) => this.#onViewChangeZoom(v)],
+  ]);
+
+  private readonly statusChangeHandlers: Map<
+    StatusChangeInputActionType,
+    StatusChangeHandler
+  > = new Map([
+    [StatusChangeInputActionType.Start, (v) => this.#onStatusChangeStart(v)],
+    [StatusChangeInputActionType.Stop, (v) => this.#onStatusChangeStop(v)],
+    [StatusChangeInputActionType.Down, (v) => this.#onStatusChangeDown(v)],
+    [StatusChangeInputActionType.Up, (v) => this.#onStatusChangeUp(v)],
+  ]);
 
   constructor() {
     super();
@@ -25,6 +60,7 @@ export class DirectWebGLCore extends ThreeDViewEngine {
     this.shader = null;
     this.cube = null;
     this.cameraController = null;
+    this.inputObservable = null;
   }
 
   init(canvas: HTMLCanvasElement): void {
@@ -32,6 +68,9 @@ export class DirectWebGLCore extends ThreeDViewEngine {
     const gl = canvas.getContext("webgl2") as WebGL2RenderingContext | null;
     if (!gl) throw new Error("WebGL2 not supported");
     this.gl = gl;
+
+    this.inputObservable = new InputObservable(this.canvas);
+    this.inputObservable.subscribe(this);
 
     const aspect = canvas.clientWidth / canvas.clientHeight;
     this.camera = new THREE.PerspectiveCamera(70, aspect, 0.1, 100);
@@ -131,5 +170,45 @@ export class DirectWebGLCore extends ThreeDViewEngine {
       return 0;
     }
     return (value - min) / (max - min);
+  }
+
+  onNext(event: InputEvent): void {
+    console.log(event);
+
+    if (event.type === InputType.ViewChange) {
+      this.viewChangeHandlers.get(event.action)?.(event.value);
+    }
+
+    if (event.type === InputType.StatusChange) {
+      this.statusChangeHandlers.get(event.action)?.(event.value);
+    }
+  }
+
+  #onViewChangeTilt(value: ViewChangeInputValue): void {
+    console.log("onViewChangeTilt", value);
+  }
+
+  #onViewChangePan(value: ViewChangeInputValue): void {
+    console.log("onViewChangePan", value);
+  }
+
+  #onViewChangeZoom(value: ViewChangeInputValue): void {
+    console.log("onViewChangeZoom", value);
+  }
+
+  #onStatusChangeStart(value: StatusChangeInputValue): void {
+    console.log("onStatusChangeStart", value);
+  }
+
+  #onStatusChangeStop(value: StatusChangeInputValue): void {
+    console.log("onStatusChangeStop", value);
+  }
+
+  #onStatusChangeDown(value: StatusChangeInputValue): void {
+    console.log("onStatusChangeDown", value);
+  }
+
+  #onStatusChangeUp(value: StatusChangeInputValue): void {
+    console.log("onStatusChangeUp", value);
   }
 }
