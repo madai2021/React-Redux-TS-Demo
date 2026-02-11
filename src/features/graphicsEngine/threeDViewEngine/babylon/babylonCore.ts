@@ -5,9 +5,9 @@ import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
 import { Scene } from "@babylonjs/core/scene";
-import { ThreeDViewEngine } from "../threeDViewEngine";
+import { IThreeDViewEngine } from "../IThreeDViewEngine";
 
-export class BabylonCore extends ThreeDViewEngine {
+export class BabylonCore implements IThreeDViewEngine {
   private engine: Nullable<Engine>;
   private scene: Nullable<Scene>;
   private camera: Nullable<Camera>;
@@ -16,7 +16,6 @@ export class BabylonCore extends ThreeDViewEngine {
   };
 
   constructor() {
-    super();
     this.engine = null;
     this.scene = null;
     this.camera = null;
@@ -32,7 +31,7 @@ export class BabylonCore extends ThreeDViewEngine {
       Math.PI / 2,
       4,
       new Vector3(0, 0, 0),
-      this.scene
+      this.scene,
     );
     this.camera.attachControl(canvas, true);
 
@@ -40,7 +39,7 @@ export class BabylonCore extends ThreeDViewEngine {
     MeshBuilder.CreateBox(
       "box",
       { size: 1, sideOrientation: Mesh.DOUBLESIDE },
-      this.scene
+      this.scene,
     );
   }
 

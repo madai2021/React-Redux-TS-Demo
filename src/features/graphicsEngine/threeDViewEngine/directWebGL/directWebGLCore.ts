@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { ThreeDViewEngine } from "../threeDViewEngine";
+import { IThreeDViewEngine } from "../IThreeDViewEngine";
 import { CameraController } from "./cameraController";
 import {
   IInputObservable,
@@ -18,8 +18,7 @@ import { StatusChangeHandler, ViewChangeHandler } from "./type";
 
 // WebGLで直接描画するエンジン、Three.jsは行列計算にのみ使用
 export class DirectWebGLCore
-  extends ThreeDViewEngine
-  implements IInputObserver<InputEvent>
+  implements IThreeDViewEngine, IInputObserver<InputEvent>
 {
   private gl: WebGL2RenderingContext | null;
   private canvas: HTMLCanvasElement | null;
@@ -51,7 +50,6 @@ export class DirectWebGLCore
   ]);
 
   constructor() {
-    super();
     this.gl = null;
     this.canvas = null;
     this.vao = null;
@@ -90,7 +88,7 @@ export class DirectWebGLCore
     const lightDirLoc = gl.getUniformLocation(program, "uLightDir");
     gl.uniform3fv(
       lightDirLoc,
-      new Float32Array(new THREE.Vector3(1, 1, 0).normalize().toArray())
+      new Float32Array(new THREE.Vector3(1, 1, 0).normalize().toArray()),
     );
 
     gl.enable(gl.DEPTH_TEST);
@@ -144,7 +142,7 @@ export class DirectWebGLCore
         gl.TRIANGLES,
         this.cube!.indices.length,
         gl.UNSIGNED_SHORT,
-        0
+        0,
       );
 
       this.animationId = requestAnimationFrame(render);

@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { IGraphicsEngine } from "../../features/graphicsEngine/IGraphicsEngine";
+import {
+  GraphicEngineNameProvider,
+  IGraphicsEngine,
+} from "../../features/graphicsEngine";
 import { ThreeDViewProps } from "./types";
 
 const ThreeDView: React.FC<ThreeDViewProps> = ({ engine }) => {
@@ -14,7 +17,7 @@ const ThreeDView: React.FC<ThreeDViewProps> = ({ engine }) => {
     engineRef.current.init(canvasRef.current);
     engineRef.current.startRender();
 
-    setEngineName(engineRef.current.getName());
+    setEngineName(GraphicEngineNameProvider.getName(engineRef.current));
 
     return () => {
       engineRef.current?.dispose();
@@ -30,7 +33,7 @@ const ThreeDView: React.FC<ThreeDViewProps> = ({ engine }) => {
           fontSize: "32px",
         }}
       >
-        {engineRef.current?.getName()}
+        {engineName}
       </span>
       <canvas ref={canvasRef} style={{ width: "100%", height: "100%" }} />
     </div>

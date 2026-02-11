@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { ThreeDViewEngine } from "../threeDViewEngine";
+import { IThreeDViewEngine } from "../IThreeDViewEngine";
 
-export class ThreeCore extends ThreeDViewEngine {
+export class ThreeCore implements IThreeDViewEngine {
   private renderer: THREE.WebGLRenderer | null;
   private scene: THREE.Scene | null;
   private camera: THREE.PerspectiveCamera | null;
@@ -10,7 +10,6 @@ export class ThreeCore extends ThreeDViewEngine {
   private animationId: number | null;
 
   constructor() {
-    super();
     this.renderer = null;
     this.scene = null;
     this.camera = null;
