@@ -26,6 +26,7 @@ export class InputEventObserver implements IInputEventObserver {
 
   dispose(): void {
     this.inputObservable.unsubscribe(this);
+    this.inputEventObservable.dispose();
   }
 
   onNext(event: InputEvent): void {

@@ -1,10 +1,13 @@
+import { IDisposable } from "@lifecycle/IDisposable";
 import { IInputObserver } from "../../observer";
 import { InputType, ViewChangeInputActionType } from "../const";
 import { IInputObservable } from "../IInputObservable";
 import { ViewChangeInputEvent } from "../type";
 import { DomMouseEventValue } from "./const";
 
-export default class MouseInputObservable implements IInputObservable<ViewChangeInputEvent> {
+export default class MouseInputObservable
+  implements IInputObservable<ViewChangeInputEvent>, IDisposable
+{
   private observers: Set<IInputObserver<ViewChangeInputEvent>>;
 
   private isLeftDown;
@@ -31,6 +34,18 @@ export default class MouseInputObservable implements IInputObservable<ViewChange
 
   unsubscribe(observer: IInputObserver<ViewChangeInputEvent>): void {
     this.observers.delete(observer);
+  }
+
+  dispose(): void {
+    window.removeEventListener(DomMouseEventValue.Down, this.#onMouseDown);
+    window.removeEventListener(DomMouseEventValue.Up, this.#onMouseUp);
+    window.removeEventListener(DomMouseEventValue.Move, this.#onMouseMove);
+    window.removeEventListener(DomMouseEventValue.Wheel, this.#onWheel);
+    window.removeEventListener(
+      DomMouseEventValue.ContextMenu,
+      this.#contextmenu,
+    );
+    this.observers.clear();
   }
 
   #notify(event: ViewChangeInputEvent) {

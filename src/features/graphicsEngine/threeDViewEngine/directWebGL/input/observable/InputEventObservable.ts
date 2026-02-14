@@ -1,3 +1,4 @@
+import { IDisposable } from "@babylonjs/core";
 import { IInputEventObserver } from "../observer/IInputEventObserver";
 import { IInputEventObservable } from "./IInputEventObservable";
 import { KeyboardInputObservable } from "./Keyboard";
@@ -30,6 +31,10 @@ export default class InputEventObservable implements IInputEventObservable {
 
   unsubscribe(observer: IInputEventObserver): void {
     this.observers.delete(observer);
+  }
+
+  dispose(): void {
+    this.observers.clear();
   }
 
   #onNext = (event: InputEvent) => {

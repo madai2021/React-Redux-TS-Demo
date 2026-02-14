@@ -139,6 +139,7 @@ export class DirectWebGLCore implements IThreeDViewEngine {
 
   dispose(): void {
     this.stopRender();
+    this.inputObserver?.dispose();
     this.gl = null;
     this.vao = null;
   }
