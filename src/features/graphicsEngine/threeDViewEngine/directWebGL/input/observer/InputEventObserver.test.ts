@@ -9,7 +9,7 @@ import { InputEventObserver } from "./InputEventObserver";
 // Logger をモック
 jest.mock("../../../../../../config/logger", () => {
   return {
-    __esModule: true, // ← これが重要
+    __esModule: true,
     default: {
       info: jest.fn(),
       warn: jest.fn(),
