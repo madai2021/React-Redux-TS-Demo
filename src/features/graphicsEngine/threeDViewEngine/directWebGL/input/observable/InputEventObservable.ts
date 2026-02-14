@@ -1,4 +1,4 @@
-import { IDisposable } from "@babylonjs/core";
+import { IDisposable } from "@lifecycle/IDisposable";
 import { IInputEventObserver } from "../observer/IInputEventObserver";
 import { IInputEventObservable } from "./IInputEventObservable";
 import { IKeyboardInputObservable, KeyboardInputObservable } from "./Keyboard";
