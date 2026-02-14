@@ -28,7 +28,7 @@ export class DirectWebGLCore implements IThreeDViewEngine {
   private shader: Shader | null;
   private cube: Cube | null;
   private cameraController: CameraController | null;
-  private inputObserver: InputEventObserver | null;
+  private inputEventObserver: InputEventObserver | null;
 
   constructor() {
     this.gl = null;
@@ -39,7 +39,7 @@ export class DirectWebGLCore implements IThreeDViewEngine {
     this.shader = null;
     this.cube = null;
     this.cameraController = null;
-    this.inputObserver = null;
+    this.inputEventObserver = null;
   }
 
   init(canvas: HTMLCanvasElement): void {
@@ -48,7 +48,7 @@ export class DirectWebGLCore implements IThreeDViewEngine {
     if (!gl) throw new Error("WebGL2 not supported");
     this.gl = gl;
 
-    this.inputObserver = new InputEventObserver(canvas);
+    this.inputEventObserver = new InputEventObserver(canvas);
 
     const aspect = canvas.clientWidth / canvas.clientHeight;
     this.camera = new THREE.PerspectiveCamera(70, aspect, 0.1, 100);
@@ -139,7 +139,7 @@ export class DirectWebGLCore implements IThreeDViewEngine {
 
   dispose(): void {
     this.stopRender();
-    this.inputObserver?.dispose();
+    this.inputEventObserver?.dispose();
     this.gl = null;
     this.vao = null;
   }
