@@ -36,6 +36,12 @@ export default [
     },
   },
   {
+    files: ["**/*.test.ts", "**/*.test.tsx"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
+  {
     files: ["webpack.config.js"],
     languageOptions: {
       globals: globals.node,
