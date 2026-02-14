@@ -1,4 +1,5 @@
 import { IDisposable } from "@lifecycle/IDisposable";
+import Logger from "../../../../../../config/logger";
 import {
   InputEvent,
   InputEventObservable,
@@ -15,7 +16,6 @@ import {
 } from "../observable";
 import { IInputEventObservable } from "../observable/IInputEventObservable";
 import { IInputEventObserver } from "./IInputEventObserver";
-
 export class InputEventObserver implements IInputEventObserver {
   private inputEventObservable: IInputEventObservable;
 
@@ -33,7 +33,7 @@ export class InputEventObserver implements IInputEventObserver {
   }
 
   onNext(event: InputEvent): void {
-    console.log(event);
+    Logger.info(event);
 
     switch (event.type) {
       case InputType.ViewChange:
@@ -43,13 +43,13 @@ export class InputEventObserver implements IInputEventObserver {
         this.#onNextStatusChange(event.value);
         break;
       default:
-        console.warn("Unknown input event:", event);
+        Logger.warn("Unknown input event:", event);
         break;
     }
   }
 
   #onNextViewChange(inputValue: ViewChangeInputValue): void {
-    console.log(inputValue);
+    Logger.info(inputValue);
     switch (inputValue.type) {
       case ViewChangeInputActionType.Tilt:
         this.#onViewChangeTilt(inputValue);
@@ -61,25 +61,25 @@ export class InputEventObserver implements IInputEventObserver {
         this.#onViewChangeZoom(inputValue);
         break;
       default:
-        console.warn("Unknown view change input value:", inputValue);
+        Logger.warn("Unknown view change input value:", inputValue);
         break;
     }
   }
 
   #onViewChangeTilt(value: ViewChangeTiltInputValue): void {
-    console.log("onViewChangeTilt", value);
+    Logger.info("onViewChangeTilt", value);
   }
 
   #onViewChangePan(value: ViewChangePanInputValue): void {
-    console.log("onViewChangePan", value);
+    Logger.info("onViewChangePan", value);
   }
 
   #onViewChangeZoom(value: ViewChangeZoomInputValue): void {
-    console.log("onViewChangeZoom", value);
+    Logger.info("onViewChangeZoom", value);
   }
 
   #onNextStatusChange(inputValue: StatusChangeInputValue): void {
-    console.log(inputValue);
+    Logger.info(inputValue);
     switch (inputValue.type) {
       case StatusChangeInputActionType.Start:
         this.#onStatusChangeStart(inputValue);
@@ -100,18 +100,18 @@ export class InputEventObserver implements IInputEventObserver {
   }
 
   #onStatusChangeStart(value: StatusChangeStartInputValue): void {
-    console.log("onStatusChangeStart", value);
+    Logger.info("onStatusChangeStart", value);
   }
 
   #onStatusChangeStop(value: StatusChangeNoneInputValue): void {
-    console.log("onStatusChangeStop", value);
+    Logger.info("onStatusChangeStop", value);
   }
 
   #onStatusChangeDown(value: StatusChangeNoneInputValue): void {
-    console.log("onStatusChangeDown", value);
+    Logger.info("onStatusChangeDown", value);
   }
 
   #onStatusChangeUp(value: StatusChangeInputValue): void {
-    console.log("onStatusChangeUp", value);
+    Logger.info("onStatusChangeUp", value);
   }
 }
