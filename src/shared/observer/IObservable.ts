@@ -1,5 +1,5 @@
 import { IDisposable } from "@lifecycle/IDisposable";
-import { IObserver } from "../observer";
+import { IObserver } from "./IObserver";
 
 export interface IObservable<TEvent> {
   subscribe(observer: IObserver<TEvent>): IDisposable;

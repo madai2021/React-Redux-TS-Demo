@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "baseUrl": "src",
     "paths": {
-      "@lifecycle/*": ["shared/lifecycle/*"]
+      "@lifecycle/*": ["shared/lifecycle/*"],
+      "@observer/*": ["shared/observer/*"]
     },
     // "rootDir": "./src",
     // "outDir": "./dist",
