@@ -1,4 +1,4 @@
-import { IDisposable } from "./IDisposable";
+import { IDisposable } from "@lifecycle/IDisposable";
 
 export interface IGraphicsEngine extends IDisposable {
   init(canvas: HTMLCanvasElement): void;

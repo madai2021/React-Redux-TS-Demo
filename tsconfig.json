@@ -4,6 +4,10 @@
     // File Layout
     "rootDir": "./src",
     "outDir": "./dist",
+    "baseUrl": "src",
+    "paths": {
+      "@lifecycle/*": ["shared/lifecycle/*"]
+    },
     // "rootDir": "./src",
     // "outDir": "./dist",
 
