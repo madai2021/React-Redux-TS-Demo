@@ -1,6 +1,6 @@
 import { IDisposable } from "@lifecycle/IDisposable";
-import { IObservable } from "@observer/IObservable";
-import { IObserver } from "@observer/IObserver";
+import { IObservable } from "@reactive/IObservable";
+import { IObserver } from "@reactive/IObserver";
 import { StatusChangeInputEvent } from "../type";
 
 export interface IKeyboardInputObservable

@@ -7,7 +7,7 @@
     "baseUrl": "src",
     "paths": {
       "@lifecycle/*": ["shared/lifecycle/*"],
-      "@observer/*": ["shared/observer/*"]
+      "@reactive/*": ["shared/reactive/*"]
     },
     // "rootDir": "./src",
     // "outDir": "./dist",
