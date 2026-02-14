@@ -2,9 +2,7 @@ import * as THREE from "three";
 import { IThreeDViewEngine } from "../IThreeDViewEngine";
 import { CameraController } from "./cameraController";
 import {
-  IInputObservable,
   InputEvent,
-  InputObservable,
   InputType,
   StatusChangeInputActionType,
   StatusChangeInputValue,
@@ -16,14 +14,12 @@ import {
   ViewChangeTiltInputValue,
   ViewChangeZoomInputValue,
 } from "./input/observable";
-import { IInputObserver } from "./input/observer";
+import { IInputObserver, InputObserver } from "./input/observer";
 import { Cube } from "./meshes/cube";
 import { Shader } from "./shader/shader";
 
 // WebGLで直接描画するエンジン、Three.jsは行列計算にのみ使用
-export class DirectWebGLCore
-  implements IThreeDViewEngine, IInputObserver<InputEvent>
-{
+export class DirectWebGLCore implements IThreeDViewEngine {
   private gl: WebGL2RenderingContext | null;
   private canvas: HTMLCanvasElement | null;
   private vao: WebGLVertexArrayObject | null;
@@ -32,7 +28,7 @@ export class DirectWebGLCore
   private shader: Shader | null;
   private cube: Cube | null;
   private cameraController: CameraController | null;
-  private inputObservable: IInputObservable<InputEvent> | null;
+  private inputObserver: IInputObserver<InputEvent> | null;
 
   constructor() {
     this.gl = null;
@@ -43,7 +39,7 @@ export class DirectWebGLCore
     this.shader = null;
     this.cube = null;
     this.cameraController = null;
-    this.inputObservable = null;
+    this.inputObserver = null;
   }
 
   init(canvas: HTMLCanvasElement): void {
@@ -52,8 +48,7 @@ export class DirectWebGLCore
     if (!gl) throw new Error("WebGL2 not supported");
     this.gl = gl;
 
-    this.inputObservable = new InputObservable(this.canvas);
-    this.inputObservable.subscribe(this);
+    this.inputObserver = new InputObserver(canvas);
 
     const aspect = canvas.clientWidth / canvas.clientHeight;
     this.camera = new THREE.PerspectiveCamera(70, aspect, 0.1, 100);
