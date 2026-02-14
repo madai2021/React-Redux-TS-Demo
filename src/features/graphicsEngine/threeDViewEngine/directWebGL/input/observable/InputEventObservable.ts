@@ -46,6 +46,8 @@ export default class InputEventObservable implements IInputEventObservable {
 
   dispose(): void {
     this.disposables.forEach((d) => d.dispose());
+    this.mouse.dispose();
+    this.keyboard.dispose();
     this.observers.clear();
   }
 
