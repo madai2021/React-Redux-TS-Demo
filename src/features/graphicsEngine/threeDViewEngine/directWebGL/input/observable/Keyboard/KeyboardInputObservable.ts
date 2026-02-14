@@ -28,8 +28,11 @@ export default class KeyboardInputObservable
     window.addEventListener(DomKeyboardEventValue.KeyDown, this.#onKeyDown);
   }
 
-  subscribe(observer: IInputObserver<StatusChangeInputEvent>): void {
+  subscribe(observer: IInputObserver<StatusChangeInputEvent>): IDisposable {
     this.observers.add(observer);
+    return {
+      dispose: () => this.unsubscribe(observer),
+    };
   }
 
   unsubscribe(observer: IInputObserver<StatusChangeInputEvent>): void {

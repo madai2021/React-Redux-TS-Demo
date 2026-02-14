@@ -28,8 +28,11 @@ export default class MouseInputObservable
     canvas.addEventListener("contextmenu", this.#contextmenu);
   }
 
-  subscribe(observer: IInputObserver<ViewChangeInputEvent>): void {
+  subscribe(observer: IInputObserver<ViewChangeInputEvent>): IDisposable {
     this.observers.add(observer);
+    return {
+      dispose: () => this.unsubscribe(observer),
+    };
   }
 
   unsubscribe(observer: IInputObserver<ViewChangeInputEvent>): void {

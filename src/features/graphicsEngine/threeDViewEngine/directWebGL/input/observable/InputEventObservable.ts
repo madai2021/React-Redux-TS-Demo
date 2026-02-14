@@ -12,21 +12,32 @@ export default class InputEventObservable implements IInputEventObservable {
 
   private keyboard: KeyboardInputObservable;
 
+  private readonly disposables: IDisposable[];
+
   constructor(canvas: HTMLCanvasElement) {
     this.observers = new Set();
     this.mouse = new MouseInputObservable(canvas);
     this.keyboard = new KeyboardInputObservable();
-    this.mouse.subscribe({
-      onNext: this.#onNext,
-    });
+    this.disposables = [];
 
-    this.keyboard.subscribe({
-      onNext: this.#onNext,
-    });
+    this.disposables.push(
+      this.mouse.subscribe({
+        onNext: this.#onNext,
+      }),
+    );
+
+    this.disposables.push(
+      this.keyboard.subscribe({
+        onNext: this.#onNext,
+      }),
+    );
   }
 
-  subscribe(observer: IInputEventObserver): void {
+  subscribe(observer: IInputEventObserver): IDisposable {
     this.observers.add(observer);
+    return {
+      dispose: () => this.unsubscribe(observer),
+    };
   }
 
   unsubscribe(observer: IInputEventObserver): void {
@@ -34,6 +45,7 @@ export default class InputEventObservable implements IInputEventObservable {
   }
 
   dispose(): void {
+    this.disposables.forEach((d) => d.dispose());
     this.observers.clear();
   }
 

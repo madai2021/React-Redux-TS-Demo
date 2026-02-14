@@ -19,13 +19,16 @@ import { IInputEventObserver } from "./IInputEventObserver";
 export class InputEventObserver implements IInputEventObserver {
   private inputEventObservable: IInputEventObservable;
 
+  private readonly disposables: IDisposable[];
+
   constructor(canvas: HTMLCanvasElement) {
     this.inputEventObservable = new InputEventObservable(canvas);
-    this.inputEventObservable.subscribe(this);
+    this.disposables = [];
+    this.disposables.push(this.inputEventObservable.subscribe(this));
   }
 
   dispose(): void {
-    this.inputObservable.unsubscribe(this);
+    this.disposables.forEach((d) => d.dispose());
     this.inputEventObservable.dispose();
   }
 
