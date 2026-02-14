@@ -14,7 +14,7 @@ import {
   ViewChangeTiltInputValue,
   ViewChangeZoomInputValue,
 } from "./input/observable";
-import { IInputObserver, InputObserver } from "./input/observer";
+import { InputEventObserver } from "./input/observer";
 import { Cube } from "./meshes/cube";
 import { Shader } from "./shader/shader";
 
@@ -28,7 +28,7 @@ export class DirectWebGLCore implements IThreeDViewEngine {
   private shader: Shader | null;
   private cube: Cube | null;
   private cameraController: CameraController | null;
-  private inputObserver: IInputObserver<InputEvent> | null;
+  private inputObserver: InputEventObserver | null;
 
   constructor() {
     this.gl = null;
@@ -48,7 +48,7 @@ export class DirectWebGLCore implements IThreeDViewEngine {
     if (!gl) throw new Error("WebGL2 not supported");
     this.gl = gl;
 
-    this.inputObserver = new InputObserver(canvas);
+    this.inputObserver = new InputEventObserver(canvas);
 
     const aspect = canvas.clientWidth / canvas.clientHeight;
     this.camera = new THREE.PerspectiveCamera(70, aspect, 0.1, 100);
