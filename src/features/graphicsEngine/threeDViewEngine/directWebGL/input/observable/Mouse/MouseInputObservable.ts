@@ -2,6 +2,7 @@ import { IInputObserver } from "../../observer";
 import { InputType, ViewChangeInputActionType } from "../const";
 import { IInputObservable } from "../IInputObservable";
 import { ViewChangeInputEvent } from "../type";
+import { DomMouseEventValue } from "./const";
 
 export default class MouseInputObservable implements IInputObservable<ViewChangeInputEvent> {
   private observers: Set<IInputObserver<ViewChangeInputEvent>>;
@@ -15,10 +16,10 @@ export default class MouseInputObservable implements IInputObservable<ViewChange
     this.isLeftDown = false;
     this.isRightDown = false;
 
-    canvas.addEventListener("mousedown", this.#onMouseDown);
-    canvas.addEventListener("mouseup", this.#onMouseUp);
-    canvas.addEventListener("mousemove", this.#onMouseMove);
-    canvas.addEventListener("wheel", this.#onWheel, {
+    canvas.addEventListener(DomMouseEventValue.Down, this.#onMouseDown);
+    canvas.addEventListener(DomMouseEventValue.Up, this.#onMouseUp);
+    canvas.addEventListener(DomMouseEventValue.Move, this.#onMouseMove);
+    canvas.addEventListener(DomMouseEventValue.Wheel, this.#onWheel, {
       passive: false,
     });
     canvas.addEventListener("contextmenu", this.#contextmenu);

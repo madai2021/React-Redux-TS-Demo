@@ -2,6 +2,7 @@ import { IInputObserver } from "../../observer";
 import { InputType, StatusChangeInputActionType } from "../const";
 import { IInputObservable } from "../IInputObservable";
 import { StatusChangeInputEvent } from "../type";
+import { DomKeyboardEventValue } from "./const";
 import { StatusChangeInputActionConfig } from "./type";
 
 export default class KeyboardInputObservable implements IInputObservable<StatusChangeInputEvent> {
@@ -21,7 +22,7 @@ export default class KeyboardInputObservable implements IInputObservable<StatusC
   constructor() {
     this.observers = new Set();
 
-    window.addEventListener("keydown", this.#onKeyDown);
+    window.addEventListener(DomKeyboardEventValue.KeyDown, this.#onKeyDown);
   }
 
   subscribe(observer: IInputObserver<StatusChangeInputEvent>): void {
