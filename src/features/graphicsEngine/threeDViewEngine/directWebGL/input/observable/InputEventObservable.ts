@@ -1,16 +1,16 @@
 import { IDisposable } from "@babylonjs/core";
 import { IInputEventObserver } from "../observer/IInputEventObserver";
 import { IInputEventObservable } from "./IInputEventObservable";
-import { KeyboardInputObservable } from "./Keyboard";
-import { MouseInputObservable } from "./Mouse";
+import { IKeyboardInputObservable, KeyboardInputObservable } from "./Keyboard";
+import { IMouseInputObservable, MouseInputObservable } from "./Mouse";
 import { InputEvent } from "./type";
 
 export default class InputEventObservable implements IInputEventObservable {
   private observers: Set<IInputEventObserver>;
 
-  private mouse: MouseInputObservable;
+  private mouse: IMouseInputObservable;
 
-  private keyboard: KeyboardInputObservable;
+  private keyboard: IKeyboardInputObservable;
 
   private readonly disposables: IDisposable[];
 

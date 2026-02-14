@@ -1,14 +1,11 @@
 import { IDisposable } from "@lifecycle/IDisposable";
-import { IObserver } from "../../observer";
 import { InputType, ViewChangeInputActionType } from "../const";
-import { IObservable } from "../IObservable";
 import { ViewChangeInputEvent } from "../type";
 import { DomMouseEventValue } from "./const";
+import { IMouseInputObservable, IMouseInputObserver } from "./type";
 
-export default class MouseInputObservable
-  implements IObservable<ViewChangeInputEvent>, IDisposable
-{
-  private observers: Set<IObserver<ViewChangeInputEvent>>;
+export default class MouseInputObservable implements IMouseInputObservable {
+  private observers: Set<IMouseInputObserver>;
 
   private isLeftDown;
 
@@ -28,14 +25,14 @@ export default class MouseInputObservable
     canvas.addEventListener("contextmenu", this.#contextmenu);
   }
 
-  subscribe(observer: IObserver<ViewChangeInputEvent>): IDisposable {
+  subscribe(observer: IMouseInputObserver): IDisposable {
     this.observers.add(observer);
     return {
       dispose: () => this.unsubscribe(observer),
     };
   }
 
-  unsubscribe(observer: IObserver<ViewChangeInputEvent>): void {
+  unsubscribe(observer: IMouseInputObserver): void {
     this.observers.delete(observer);
   }
 
