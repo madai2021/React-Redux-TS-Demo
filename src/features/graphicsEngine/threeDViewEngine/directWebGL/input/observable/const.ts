@@ -3,6 +3,12 @@ export enum InputType {
   StatusChange = "StatusChange",
 }
 
+export enum ViewChangeInputActionType {
+  Tilt = "Tilt",
+  Pan = "Pan",
+  Zoom = "Zoom",
+}
+
 export enum StatusChangeInputActionType {
   Start = "Start",
   Stop = "Stop",

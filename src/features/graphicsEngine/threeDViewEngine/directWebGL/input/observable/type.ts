@@ -1,4 +1,8 @@
-import { InputType, StatusChangeInputActionType } from "./const";
+import {
+  InputType,
+  StatusChangeInputActionType,
+  ViewChangeInputActionType,
+} from "./const";
 
 export type InputEvent = ViewChangeInputEvent | StatusChangeInputEvent;
 
@@ -25,12 +29,6 @@ export interface ViewChangePanInputValue {
 export interface ViewChangeZoomInputValue {
   type: ViewChangeInputActionType.Zoom;
   zoom: number;
-}
-
-export enum ViewChangeInputActionType {
-  Tilt = "Tilt",
-  Pan = "Pan",
-  Zoom = "Zoom",
 }
 
 export interface ViewChangeInputEvent extends BaseInputEvent {

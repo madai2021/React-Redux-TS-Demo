@@ -1,7 +1,7 @@
 import { IInputObserver } from "../../observer";
-import { InputType } from "../const";
+import { InputType, ViewChangeInputActionType } from "../const";
 import { IInputObservable } from "../IInputObservable";
-import { ViewChangeInputActionType, ViewChangeInputEvent } from "../type";
+import { ViewChangeInputEvent } from "../type";
 
 export default class MouseInputObservable implements IInputObservable<ViewChangeInputEvent> {
   private observers: Set<IInputObserver<ViewChangeInputEvent>>;
