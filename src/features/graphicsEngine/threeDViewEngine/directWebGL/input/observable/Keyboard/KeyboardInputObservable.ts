@@ -1,15 +1,15 @@
 import { IDisposable } from "@lifecycle/IDisposable";
-import { IInputObserver } from "../../observer";
+import { IObserver } from "../../observer";
 import { InputType, StatusChangeInputActionType } from "../const";
-import { IInputObservable } from "../IInputObservable";
+import { IObservable } from "../IObservable";
 import { StatusChangeInputEvent } from "../type";
 import { DomKeyboardEventValue } from "./const";
 import { StatusChangeInputActionConfig } from "./type";
 
 export default class KeyboardInputObservable
-  implements IInputObservable<StatusChangeInputEvent>, IDisposable
+  implements IObservable<StatusChangeInputEvent>, IDisposable
 {
-  private observers: Set<IInputObserver<StatusChangeInputEvent>>;
+  private observers: Set<IObserver<StatusChangeInputEvent>>;
 
   private readonly keyMap: Record<string, StatusChangeInputActionConfig> = {
     " ": {
@@ -28,14 +28,14 @@ export default class KeyboardInputObservable
     window.addEventListener(DomKeyboardEventValue.KeyDown, this.#onKeyDown);
   }
 
-  subscribe(observer: IInputObserver<StatusChangeInputEvent>): IDisposable {
+  subscribe(observer: IObserver<StatusChangeInputEvent>): IDisposable {
     this.observers.add(observer);
     return {
       dispose: () => this.unsubscribe(observer),
     };
   }
 
-  unsubscribe(observer: IInputObserver<StatusChangeInputEvent>): void {
+  unsubscribe(observer: IObserver<StatusChangeInputEvent>): void {
     this.observers.delete(observer);
   }
 
