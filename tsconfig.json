@@ -16,7 +16,7 @@
     // See also https://aka.ms/tsconfig/module
     "module": "esnext",
     "target": "esnext",
-    "types": ["node"],
+    "types": ["jest", "node"],
     "moduleResolution": "node",
     // For nodejs:
     // "lib": ["esnext"],
