@@ -14,7 +14,7 @@ import {
   ViewChangeTiltInputValue,
   ViewChangeZoomInputValue,
 } from "./input/observable";
-import { InputEventObserver } from "./input/observer";
+import { IInputEventObserver, InputEventObserver } from "./input/observer";
 import { Cube } from "./meshes/cube";
 import { Shader } from "./shader/shader";
 
@@ -28,7 +28,7 @@ export class DirectWebGLCore implements IThreeDViewEngine {
   private shader: Shader | null;
   private cube: Cube | null;
   private cameraController: CameraController | null;
-  private inputEventObserver: InputEventObserver | null;
+  private inputEventObserver: IInputEventObserver | null;
 
   constructor() {
     this.gl = null;
