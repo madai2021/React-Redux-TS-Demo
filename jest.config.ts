@@ -6,7 +6,6 @@ const config: Config = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
   testMatch: ["**/*.test.(ts|tsx)"],
   testPathIgnorePatterns: ["/node_modules/", "/dist/"],
-  collectCoverage: true,
   collectCoverageFrom: ["src/**/*.{ts,tsx}"],
   coverageDirectory: "coverage",
   coverageReporters: ["text", "lcov"],
