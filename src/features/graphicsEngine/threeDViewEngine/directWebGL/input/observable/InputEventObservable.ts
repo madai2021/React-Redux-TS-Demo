@@ -1,11 +1,11 @@
-import { IInputObserver } from "../observer";
-import { IInputObservable } from "./IInputObservable";
+import { IInputEventObserver } from "../observer/IInputEventObserver";
+import { IInputEventObservable } from "./IInputEventObservable";
 import { KeyboardInputObservable } from "./Keyboard";
 import { MouseInputObservable } from "./Mouse";
 import { InputEvent } from "./type";
 
-export default class InputObservable implements IInputObservable<InputEvent> {
-  private observers: Set<IInputObserver<InputEvent>>;
+export default class InputEventObservable implements IInputEventObservable {
+  private observers: Set<IInputEventObserver>;
 
   private mouse: MouseInputObservable;
 
@@ -15,7 +15,6 @@ export default class InputObservable implements IInputObservable<InputEvent> {
     this.observers = new Set();
     this.mouse = new MouseInputObservable(canvas);
     this.keyboard = new KeyboardInputObservable();
-
     this.mouse.subscribe({
       onNext: this.#onNext,
     });
@@ -25,11 +24,11 @@ export default class InputObservable implements IInputObservable<InputEvent> {
     });
   }
 
-  subscribe(observer: IInputObserver<InputEvent>): void {
+  subscribe(observer: IInputEventObserver): void {
     this.observers.add(observer);
   }
 
-  unsubscribe(observer: IInputObserver<InputEvent>): void {
+  unsubscribe(observer: IInputEventObserver): void {
     this.observers.delete(observer);
   }
 

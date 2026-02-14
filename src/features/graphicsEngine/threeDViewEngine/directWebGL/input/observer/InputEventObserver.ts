@@ -1,7 +1,7 @@
+import { IDisposable } from "@lifecycle/IDisposable";
 import {
-  IInputObservable,
   InputEvent,
-  InputObservable,
+  InputEventObservable,
   InputType,
   StatusChangeInputActionType,
   StatusChangeInputValue,
@@ -13,14 +13,15 @@ import {
   ViewChangeTiltInputValue,
   ViewChangeZoomInputValue,
 } from "../observable";
-import { IInputObserver } from "./IInputObserver";
+import { IInputEventObservable } from "../observable/IInputEventObservable";
+import { IInputEventObserver } from "./IInputEventObserver";
 
-export class InputObserver implements IInputObserver<InputEvent> {
-  private inputObservable: IInputObservable<InputEvent>;
+export class InputEventObserver implements IInputEventObserver {
+  private inputEventObservable: IInputEventObservable;
 
   constructor(canvas: HTMLCanvasElement) {
-    this.inputObservable = new InputObservable(canvas);
-    this.inputObservable.subscribe(this);
+    this.inputEventObservable = new InputEventObservable(canvas);
+    this.inputEventObservable.subscribe(this);
   }
 
   dispose(): void {

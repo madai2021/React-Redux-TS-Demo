@@ -1,2 +1,3 @@
+export * from "./IInputEventObserver";
 export * from "./IInputObserver";
-export * from "./InputObserver";
+export * from "./InputEventObserver";
