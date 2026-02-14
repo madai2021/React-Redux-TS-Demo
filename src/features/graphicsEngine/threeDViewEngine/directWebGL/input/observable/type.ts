@@ -2,9 +2,8 @@ import { InputType, StatusChangeInputActionType } from "./const";
 
 export type InputEvent = ViewChangeInputEvent | StatusChangeInputEvent;
 
-export interface BaseInputEvent<TAction> {
+export interface BaseInputEvent {
   type: InputType;
-  action: TAction;
 }
 export type ViewChangeInputValue =
   | ViewChangeTiltInputValue
@@ -12,16 +11,19 @@ export type ViewChangeInputValue =
   | ViewChangeZoomInputValue;
 
 export interface ViewChangeTiltInputValue {
+  type: ViewChangeInputActionType.Tilt;
   deltaX: number;
   deltaY: number;
 }
 
 export interface ViewChangePanInputValue {
+  type: ViewChangeInputActionType.Pan;
   deltaX: number;
   deltaY: number;
 }
 
 export interface ViewChangeZoomInputValue {
+  type: ViewChangeInputActionType.Zoom;
   zoom: number;
 }
 
@@ -31,22 +33,29 @@ export enum ViewChangeInputActionType {
   Zoom = "Zoom",
 }
 
-export interface ViewChangeInputEvent
-  extends BaseInputEvent<ViewChangeInputActionType> {
+export interface ViewChangeInputEvent extends BaseInputEvent {
   type: InputType.ViewChange;
-  action: ViewChangeInputActionType;
   value: ViewChangeInputValue;
 }
 
-export interface StatusChangeInputEvent
-  extends BaseInputEvent<StatusChangeInputActionType> {
+export interface StatusChangeInputEvent extends BaseInputEvent {
   type: InputType.StatusChange;
-  action: StatusChangeInputActionType;
   value: StatusChangeInputValue;
 }
 
-export type StatusChangeInputValue = StatusChangeStartInputValue | null;
+export type StatusChangeInputValue =
+  | StatusChangeStartInputValue
+  | StatusChangeNoneInputValue;
 
 export interface StatusChangeStartInputValue {
+  type: StatusChangeInputActionType.Start;
   value: string;
+}
+
+export interface StatusChangeNoneInputValue {
+  type:
+    | StatusChangeInputActionType.Stop
+    | StatusChangeInputActionType.Up
+    | StatusChangeInputActionType.Down;
+  value: null;
 }

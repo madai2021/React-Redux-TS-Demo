@@ -8,13 +8,17 @@ import {
   InputType,
   StatusChangeInputActionType,
   StatusChangeInputValue,
+  StatusChangeNoneInputValue,
+  StatusChangeStartInputValue,
   ViewChangeInputActionType,
   ViewChangeInputValue,
+  ViewChangePanInputValue,
+  ViewChangeTiltInputValue,
+  ViewChangeZoomInputValue,
 } from "./input/observable";
 import { IInputObserver } from "./input/observer";
 import { Cube } from "./meshes/cube";
 import { Shader } from "./shader/shader";
-import { StatusChangeHandler, ViewChangeHandler } from "./type";
 
 // WebGLで直接描画するエンジン、Three.jsは行列計算にのみ使用
 export class DirectWebGLCore
@@ -29,25 +33,6 @@ export class DirectWebGLCore
   private cube: Cube | null;
   private cameraController: CameraController | null;
   private inputObservable: IInputObservable<InputEvent> | null;
-
-  private readonly viewChangeHandlers: Map<
-    ViewChangeInputActionType,
-    ViewChangeHandler
-  > = new Map([
-    [ViewChangeInputActionType.Tilt, (v) => this.#onViewChangeTilt(v)],
-    [ViewChangeInputActionType.Pan, (v) => this.#onViewChangePan(v)],
-    [ViewChangeInputActionType.Zoom, (v) => this.#onViewChangeZoom(v)],
-  ]);
-
-  private readonly statusChangeHandlers: Map<
-    StatusChangeInputActionType,
-    StatusChangeHandler
-  > = new Map([
-    [StatusChangeInputActionType.Start, (v) => this.#onStatusChangeStart(v)],
-    [StatusChangeInputActionType.Stop, (v) => this.#onStatusChangeStop(v)],
-    [StatusChangeInputActionType.Down, (v) => this.#onStatusChangeDown(v)],
-    [StatusChangeInputActionType.Up, (v) => this.#onStatusChangeUp(v)],
-  ]);
 
   constructor() {
     this.gl = null;
@@ -173,36 +158,79 @@ export class DirectWebGLCore
   onNext(event: InputEvent): void {
     console.log(event);
 
-    if (event.type === InputType.ViewChange) {
-      this.viewChangeHandlers.get(event.action)?.(event.value);
-    }
-
-    if (event.type === InputType.StatusChange) {
-      this.statusChangeHandlers.get(event.action)?.(event.value);
+    switch (event.type) {
+      case InputType.ViewChange:
+        this.#onNextViewChange(event.value);
+        break;
+      case InputType.StatusChange:
+        this.#onNextStatusChange(event.value);
+        break;
+      default:
+        console.warn("Unknown input event:", event);
+        break;
     }
   }
 
-  #onViewChangeTilt(value: ViewChangeInputValue): void {
+  #onNextViewChange(inputValue: ViewChangeInputValue): void {
+    console.log(inputValue);
+    switch (inputValue.type) {
+      case ViewChangeInputActionType.Tilt:
+        this.#onViewChangeTilt(inputValue);
+        break;
+      case ViewChangeInputActionType.Pan:
+        this.#onViewChangePan(inputValue);
+        break;
+      case ViewChangeInputActionType.Zoom:
+        this.#onViewChangeZoom(inputValue);
+        break;
+      default:
+        console.warn("Unknown view change input value:", inputValue);
+        break;
+    }
+  }
+
+  #onViewChangeTilt(value: ViewChangeTiltInputValue): void {
     console.log("onViewChangeTilt", value);
   }
 
-  #onViewChangePan(value: ViewChangeInputValue): void {
+  #onViewChangePan(value: ViewChangePanInputValue): void {
     console.log("onViewChangePan", value);
   }
 
-  #onViewChangeZoom(value: ViewChangeInputValue): void {
+  #onViewChangeZoom(value: ViewChangeZoomInputValue): void {
     console.log("onViewChangeZoom", value);
   }
 
-  #onStatusChangeStart(value: StatusChangeInputValue): void {
+  #onNextStatusChange(inputValue: StatusChangeInputValue): void {
+    console.log(inputValue);
+    switch (inputValue.type) {
+      case StatusChangeInputActionType.Start:
+        this.#onStatusChangeStart(inputValue);
+        break;
+      case StatusChangeInputActionType.Stop:
+        this.#onStatusChangeStop(inputValue);
+        break;
+      case StatusChangeInputActionType.Down:
+        this.#onStatusChangeDown(inputValue);
+        break;
+      case StatusChangeInputActionType.Up:
+        this.#onStatusChangeUp(inputValue);
+        break;
+      default:
+        console.warn("Unknown status change input value:", inputValue);
+        break;
+    }
+  }
+
+  #onStatusChangeStart(value: StatusChangeStartInputValue): void {
     console.log("onStatusChangeStart", value);
   }
 
-  #onStatusChangeStop(value: StatusChangeInputValue): void {
+  #onStatusChangeStop(value: StatusChangeNoneInputValue): void {
     console.log("onStatusChangeStop", value);
   }
 
-  #onStatusChangeDown(value: StatusChangeInputValue): void {
+  #onStatusChangeDown(value: StatusChangeNoneInputValue): void {
     console.log("onStatusChangeDown", value);
   }
 

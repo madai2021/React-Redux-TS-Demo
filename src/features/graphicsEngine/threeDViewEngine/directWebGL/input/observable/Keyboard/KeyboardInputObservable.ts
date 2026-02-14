@@ -4,16 +4,18 @@ import { IInputObservable } from "../IInputObservable";
 import { StatusChangeInputEvent } from "../type";
 import { StatusChangeInputActionConfig } from "./type";
 
-export default class KeyboardInputObservable
-  implements IInputObservable<StatusChangeInputEvent>
-{
+export default class KeyboardInputObservable implements IInputObservable<StatusChangeInputEvent> {
   private observers: Set<IInputObserver<StatusChangeInputEvent>>;
 
   private readonly keyMap: Record<string, StatusChangeInputActionConfig> = {
-    " ": { action: StatusChangeInputActionType.Start, value: { value: "1" } },
-    Escape: { action: StatusChangeInputActionType.Stop, value: null },
-    ArrowDown: { action: StatusChangeInputActionType.Down, value: null },
-    ArrowUp: { action: StatusChangeInputActionType.Up, value: null },
+    " ": {
+      value: { type: StatusChangeInputActionType.Start, value: "1" },
+    },
+    Escape: { value: { type: StatusChangeInputActionType.Stop, value: null } },
+    ArrowDown: {
+      value: { type: StatusChangeInputActionType.Down, value: null },
+    },
+    ArrowUp: { value: { type: StatusChangeInputActionType.Up, value: null } },
   };
 
   constructor() {
@@ -39,7 +41,6 @@ export default class KeyboardInputObservable
     if (event) {
       this.#notify({
         type: InputType.StatusChange,
-        action: event.action,
         value: event.value,
       });
     }

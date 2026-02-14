@@ -3,9 +3,7 @@ import { InputType } from "../const";
 import { IInputObservable } from "../IInputObservable";
 import { ViewChangeInputActionType, ViewChangeInputEvent } from "../type";
 
-export default class MouseInputObservable
-  implements IInputObservable<ViewChangeInputEvent>
-{
+export default class MouseInputObservable implements IInputObservable<ViewChangeInputEvent> {
   private observers: Set<IInputObserver<ViewChangeInputEvent>>;
 
   private isLeftDown;
@@ -54,8 +52,8 @@ export default class MouseInputObservable
     if (this.isLeftDown) {
       this.#notify({
         type: InputType.ViewChange,
-        action: ViewChangeInputActionType.Tilt,
         value: {
+          type: ViewChangeInputActionType.Tilt,
           deltaX: e.movementX,
           deltaY: e.movementY,
         },
@@ -65,8 +63,8 @@ export default class MouseInputObservable
     if (this.isRightDown) {
       this.#notify({
         type: InputType.ViewChange,
-        action: ViewChangeInputActionType.Pan,
         value: {
+          type: ViewChangeInputActionType.Pan,
           deltaX: e.movementX,
           deltaY: e.movementY,
         },
@@ -77,8 +75,8 @@ export default class MouseInputObservable
   #onWheel = (e: WheelEvent) => {
     this.#notify({
       type: InputType.ViewChange,
-      action: ViewChangeInputActionType.Zoom,
       value: {
+        type: ViewChangeInputActionType.Zoom,
         zoom: e.deltaY,
       },
     });
