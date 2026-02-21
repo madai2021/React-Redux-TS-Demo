@@ -9,6 +9,8 @@
       "@lifecycle/*": ["shared/lifecycle/*"],
       "@reactive/*": ["shared/reactive/*"]
     },
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     // "rootDir": "./src",
     // "outDir": "./dist",
 
