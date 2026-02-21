@@ -9,7 +9,7 @@
     "start": "webpack serve",
     "build": "webpack",
     "check": "tsc --noEmit",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint src --ext .ts,.tsx"
   },
   "keywords": [],
   "author": "",
