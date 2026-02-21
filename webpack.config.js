@@ -6,6 +6,7 @@ export default {
   output: {
     path: path.resolve(process.cwd(), "dist"),
     filename: "bundle.js",
+    publicPath: "/React-Redux-TS-Demo/",
   },
   mode: "development",
   devtool: "source-map",
