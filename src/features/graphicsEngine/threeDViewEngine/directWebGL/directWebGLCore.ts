@@ -27,7 +27,6 @@ export class DirectWebGLCore implements IThreeDViewEngine {
   private animationId: number | null;
   private shader: Shader | null;
   private cube: Cube | null;
-  private cameraController: CameraController | null;
   private inputEventObserver: IInputEventObserver | null;
 
   constructor() {
@@ -38,7 +37,6 @@ export class DirectWebGLCore implements IThreeDViewEngine {
     this.animationId = null;
     this.shader = null;
     this.cube = null;
-    this.cameraController = null;
     this.inputEventObserver = null;
   }
 
@@ -54,7 +52,7 @@ export class DirectWebGLCore implements IThreeDViewEngine {
     this.camera = new THREE.PerspectiveCamera(70, aspect, 0.1, 100);
     this.camera.position.set(0, 0, 5);
     this.camera.lookAt(0, 0, 0);
-    this.cameraController = new CameraController(this.camera, canvas);
+    new CameraController(this.camera, canvas);
 
     this.shader = new Shader();
     this.shader.init(gl);
